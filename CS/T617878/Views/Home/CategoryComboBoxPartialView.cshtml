@@ -1,0 +1,14 @@
+﻿@model int
+@(Html.DevExpress()
+      .BootstrapComboBox("CategoryID")
+      .Routes(routes => routes.MapRoute(r => r
+          .Action("CategoryComboBoxPartialView")
+          .Controller("Home")))
+      .TextField("CategoryName")
+      .ValueField("CategoryId")
+      .ValueType(typeof(int))
+      .CallbackPageSize(10)
+      .Bind(ViewData["Category"])
+      .Value(Model)
+      .ClientSideEvents(cs => cs.SelectedIndexChanged("function(s, e) { ProductID.PerformCallback({ categoryChanged: true }); }"))
+)

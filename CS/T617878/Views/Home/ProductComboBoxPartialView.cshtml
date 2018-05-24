@@ -1,0 +1,14 @@
+﻿@model int
+@(Html.DevExpress()
+      .BootstrapComboBox("ProductID")
+      .Routes(routes => routes.MapRoute(r => r
+          .Action("ProductComboBoxPartialView")
+          .Controller("Home")))
+      .TextField("ProductName")
+      .ValueField("ProductId")
+      .ValueType(typeof(int))
+      .CallbackPageSize(10)
+      .Bind(ViewData["Product"])
+      .Value(Model)
+      .ClientSideEvents(cs => cs.BeginCallback("function(s, e) { e.customArgs['Category'] = CategoryID.GetValue(); e.customArgs['Product'] = s.GetValue(); }"))
+)

@@ -1,0 +1,20 @@
+@model MyModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @(Html.DevExpress()
+            .BootstrapTextBoxFor(m => m.ID))
+    @(Html.DevExpress()
+            .BootstrapTextBoxFor(m => m.Text))
+    @Html.Partial("CategoryComboBoxPartialView", Model.CategoryID)
+    @Html.Partial("ProductComboBoxPartialView", Model.ProductID)
+    @(Html.DevExpress()
+        .BootstrapButton()
+        .Name("OK")
+        .Text("OK")
+        .UseSubmitBehavior(true)
+        .SettingsBootstrap(bootstrap => bootstrap.RenderOption(BootstrapRenderOption.Primary))
+        .CssClasses(css => css.Icon("fa fa-check")))
+}
