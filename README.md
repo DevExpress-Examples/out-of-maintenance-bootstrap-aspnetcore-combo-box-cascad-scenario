@@ -1,47 +1,6 @@
-<!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/134719874/18.1.3%2B)
-[![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T830586)
-[![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
-<!-- default badges end -->
+
 # BootstrapComboBox for ASP.NET Core - How to implement a Cascading Combo Boxes scenario
-This example demonstrates how to implement a Cascading Combo Boxes scenario using a Bootstrap-based component for ASP.NET Core: [BootstrapComboBox](https://demos.devexpress.com/aspnetcore-bootstrap/Editors-ComboBox).
 
-## Steps to implement:
-1. Create two Partial Views: one for the Category combo box and the other for the Product combo box (whose data source depends on selection in the Category combo box).
-2. Add these partial views to the necessary view
-3. Add BootstrapComboBox to the "CategoryComboBoxPartialView" Partial View and handle its client-side SelectedIndexChanged event. It's necessary to perform a callback to the Product combo box in this event handler:
+We continue to enhance DevExpress-related learning materials/examples on GitHub. Unfortunately, this example lacked user interest and its code base is now obsolete.
 
-```csharp 
-@(Html.DevExpress()
-      .BootstrapComboBox("CategoryID")
-      ...
-      .Bind(ViewData["Category"])
-      .ClientSideEvents(cs => cs.SelectedIndexChanged("function(s, e) { ProductID.PerformCallback({ categoryChanged: true }); }"))
-)
-```
-4. Add BootstrapComboBox to the "ProductComboBoxPartialView" Partial View and handle its client-side BeginCallback event. Pass the required data for filtering (the Category combo-box value in this case) to the Product combo-box callback's action method:
-
-```csharp 
-@(Html.DevExpress()
-      .BootstrapComboBox("ProductID")
-      .Routes(routes => routes.MapRoute(r => r
-          .Action("ProductComboBoxPartialView")
-          .Controller("Home")))
-	  ...
-      .Bind(ViewData["Product"])
-      .ClientSideEvents(cs => cs.BeginCallback("function(s, e) { e.customArgs['Category'] = CategoryID.GetValue(); e.customArgs['Product'] = s.GetValue(); }"))
-)
-```
-5. Specify the "ProductComboBoxPartialView" action method and set the data source based on passed data: 
-
-```csharp  
-public IActionResult ProductComboBoxPartialView(int? Category, int? Product, bool? categoryChanged)
-{
-		if (Category != null)
-				ViewData["Product"] = NorthwindContext.Products.Where(m => m.CategoryID == Category);
-		else
-                ViewData["Product"] = NorthwindContext.Products;
-		...
-}
-``` 
-
+If the use-case outlined in this example is of importance to you (or if you require additional guidance), please submit a support ticket via the [DevExpress Support Center](https://supportcenter.devexpress.com/ticket/create?followUpTo=T830586). We will be happy to follow-up.
